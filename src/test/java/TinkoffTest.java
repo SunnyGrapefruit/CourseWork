@@ -37,14 +37,18 @@ public class TinkoffTest {
     public void headerTest() {
 
         ExchangePage exchangePage = new ExchangePage(driver);
-        exchangePage.returnHref(exchangePage.header1);
+        WebElement url = exchangePage.header1;
+        List <WebElement> links = url.findElements(By.cssSelector("a"));
+        String href;
+        int statusCode;
+        for(WebElement  link : links) {
+            href = link.getAttribute("href");
+            statusCode = RestAssured.get(href).statusCode();
 
-
-//        WebElement link = driver.findElement(By.cssSelector("a"));
-//        String href = link.getAttribute("href");
-//        int statusCode =  RestAssured.get(href).statusCode();
-//        Assert.assertEquals("200", statusCode);
-
+            if(200 != statusCode) {
+                System.out.println(href + " gave a response code of " + statusCode);
+            }
+        }
     }
 
 
