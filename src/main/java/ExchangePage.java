@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-
 public class ExchangePage {
 
     private WebDriver driver;
