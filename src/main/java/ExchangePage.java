@@ -80,21 +80,8 @@ public class ExchangePage {
     public WebElement footer;
 
 
-//    public int httpResponseCodeViaGet(String url) {
-//        return RestAssured.get(url).statusCode();
-//    }
+    public List<WebElement> returnHref(WebElement url){
+        return url.findElements(By.cssSelector("a"));
+    }
 
-    //получение всех ссылок из элемента
-//    public void returnHref(WebElement url){
-//        List <WebElement> links = url.findElements(By.cssSelector("a"));
-//        String href;
-//        int statusCode;
-//        for(WebElement  link : links) {
-//            href = link.getAttribute("href");
-//            statusCode = RestAssured.get(href).statusCode();
-//            if(200 != statusCode) {
-//                System.out.println(href + " gave a response code of " + statusCode);
-//            }
-//        }
-//    }
 }

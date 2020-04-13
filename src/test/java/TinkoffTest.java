@@ -35,30 +35,29 @@ public class TinkoffTest {
 
     @Test //Пункт 3
     public void headerTest() {
-
         ExchangePage exchangePage = new ExchangePage(driver);
-        WebElement url = exchangePage.header1;
-        List <WebElement> links = url.findElements(By.cssSelector("a"));
-        String href;
-        int statusCode;
+        List<WebElement> links = exchangePage.returnHref(exchangePage.header1);
         for(WebElement  link : links) {
-            href = link.getAttribute("href");
-            statusCode = RestAssured.get(href).statusCode();
-
-            if(200 != statusCode) {
+            String href = link.getAttribute("href");
+            int statusCode = RestAssured.get(href).statusCode();
+            if(300 != statusCode) {
                 System.out.println(href + " gave a response code of " + statusCode);
             }
         }
     }
 
 
-
     @Test //Пункт 5
     public void footerTest() {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
         ExchangePage exchangePage = new ExchangePage(driver);
-        wait.until(ExpectedConditions.visibilityOf(exchangePage.currentPage));
-        Assert.assertEquals("Курсы валют", exchangePage.getCurrentPage());
+        List<WebElement> links = exchangePage.returnHref(exchangePage.footer);
+        for(WebElement  link : links) {
+            String href = link.getAttribute("href");
+            int statusCode = RestAssured.get(href).statusCode();
+            if(200 != statusCode) {
+                System.out.println(href + " gave a response code of " + statusCode);
+            }
+        }
     }
 
 
