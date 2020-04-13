@@ -77,6 +77,9 @@ public class ExchangePage {
     @FindBy(className = "header__3Wh47")
     public WebElement header2;
 
+    @FindBy(className = "footer__8Y9k5")
+    public WebElement footer;
+
 
     public int httpResponseCodeViaGet(String url) {
         return RestAssured.get(url).statusCode();
