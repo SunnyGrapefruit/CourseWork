@@ -79,9 +79,4 @@ public class ExchangePage {
     @FindBy(className = "footer__8Y9k5")
     public WebElement footer;
 
-
-    public List<WebElement> returnHref(WebElement url){
-        return url.findElements(By.cssSelector("a"));
-    }
-
 }

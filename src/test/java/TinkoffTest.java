@@ -28,29 +28,12 @@ public class TinkoffTest {
 
     @After
     public void tearDown() throws InterruptedException {
-        TimeUnit.SECONDS.sleep(3);
         driver.quit();
     }
 
 
-    @Test //Пункт 3
-    public void headerTest() {
-        ExchangePage exchangePage = new ExchangePage(driver);
-        List<WebElement> links = exchangePage.returnHref(exchangePage.header1);
-        for(WebElement  link : links) {
-            String href = link.getAttribute("href");
-            int statusCode = RestAssured.get(href).statusCode();
-            if(300 != statusCode) {
-                System.out.println(href + " gave a response code of " + statusCode);
-            }
-        }
-    }
-
-
-    @Test //Пункт 5
-    public void footerTest() {
-        ExchangePage exchangePage = new ExchangePage(driver);
-        List<WebElement> links = exchangePage.returnHref(exchangePage.footer);
+    public void response(WebElement url){
+        List<WebElement> links = url.findElements(By.cssSelector("a"));
         for(WebElement  link : links) {
             String href = link.getAttribute("href");
             int statusCode = RestAssured.get(href).statusCode();
@@ -60,6 +43,18 @@ public class TinkoffTest {
         }
     }
 
+    @Test //Пункт 3
+    public void headerTest() {
+        ExchangePage exchangePage = new ExchangePage(driver);
+        response(exchangePage.header1);
+        response(exchangePage.header2);
+    }
+
+    @Test //Пункт 5
+    public void footerTest() {
+        ExchangePage exchangePage = new ExchangePage(driver);
+        response(exchangePage.footer);
+    }
 
     @Test //Пункт 4
     public void getCurrentPageTest() {
