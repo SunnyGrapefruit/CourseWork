@@ -2,13 +2,17 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import io.restassured.RestAssured;
 
 public class TinkoffTest {
 
@@ -27,6 +31,32 @@ public class TinkoffTest {
         TimeUnit.SECONDS.sleep(3);
         driver.quit();
     }
+
+
+    @Test //Пункт 3
+    public void headerTest() {
+
+        ExchangePage exchangePage = new ExchangePage(driver);
+        exchangePage.returnHref(exchangePage.header1);
+
+
+//        WebElement link = driver.findElement(By.cssSelector("a"));
+//        String href = link.getAttribute("href");
+//        int statusCode =  RestAssured.get(href).statusCode();
+//        Assert.assertEquals("200", statusCode);
+
+    }
+
+
+
+    @Test //Пункт 5
+    public void footerTest() {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        ExchangePage exchangePage = new ExchangePage(driver);
+        wait.until(ExpectedConditions.visibilityOf(exchangePage.currentPage));
+        Assert.assertEquals("Курсы валют", exchangePage.getCurrentPage());
+    }
+
 
     @Test //Пункт 4
     public void getCurrentPageTest() {
@@ -47,7 +77,6 @@ public class TinkoffTest {
 
     @Test //Пункт 7
     public void changeCurrencyFromTest() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
         ExchangePage exchangePage = new ExchangePage(driver);
         exchangePage.changeCurrencyFrom();
         Assert.assertEquals("Евро", exchangePage.getCurrencyFrom());
@@ -56,7 +85,6 @@ public class TinkoffTest {
 
     @Test //Пункт 8-10
     public void changeCurrencyToTest() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
         ExchangePage exchangePage = new ExchangePage(driver);
         changeCurrencyFromTest();
         exchangePage.changeCurrencyTo();
