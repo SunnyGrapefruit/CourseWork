@@ -50,7 +50,6 @@ public class TinkoffTest {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         ExchangePage exchangePage = new ExchangePage(driver);
         exchangePage.changeCurrencyFrom();
-        TimeUnit.SECONDS.sleep(3);
         Assert.assertEquals("Евро", exchangePage.getCurrencyFrom());
         Assert.assertEquals("Рубль", exchangePage.getCurrencyTo());
     }
@@ -61,7 +60,6 @@ public class TinkoffTest {
         ExchangePage exchangePage = new ExchangePage(driver);
         changeCurrencyFromTest();
         exchangePage.changeCurrencyTo();
-        TimeUnit.SECONDS.sleep(3);
         Assert.assertEquals("Евро", exchangePage.getCurrencyFrom());
         Assert.assertEquals("Доллар", exchangePage.getCurrencyTo());
     }

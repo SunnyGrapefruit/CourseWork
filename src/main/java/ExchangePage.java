@@ -1,3 +1,4 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -53,6 +54,8 @@ public class ExchangePage {
         currencyFrom.click();
         wait.until(ExpectedConditions.visibilityOf(currencyList));
         changeCurrencyFrom.click();
+//        wait.until(ExpectedConditions.invisibilityOf(currencyList));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("Dropdown__dropdownList_shadow_1Tvwu")));
     }
 
     public void changeCurrencyTo(){
@@ -60,6 +63,7 @@ public class ExchangePage {
         currencyTo.click();
         wait.until(ExpectedConditions.visibilityOf(currencyList));
         changeCurrencyTo.click();
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("Dropdown__dropdownList_shadow_1Tvwu")));
     }
 
 }
