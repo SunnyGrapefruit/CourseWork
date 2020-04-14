@@ -12,6 +12,15 @@ public class ExchangePage {
 
     private WebDriver driver;
 
+    @FindBy(className = "header__1lZpj")
+    public WebElement header1;
+
+    @FindBy(className = "header__3Wh47")
+    public WebElement header2;
+
+    @FindBy(className = "footer__8Y9k5")
+    public WebElement footer;
+
     @FindBy(className = "header__3Gok1")
     public WebElement currentPage;
 
@@ -70,13 +79,6 @@ public class ExchangePage {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("Dropdown__dropdownList_shadow_1Tvwu")));
     }
 
-    @FindBy(className = "header__1lZpj")
-    public WebElement header1;
 
-    @FindBy(className = "header__3Wh47")
-    public WebElement header2;
-
-    @FindBy(className = "footer__8Y9k5")
-    public WebElement footer;
 
 }

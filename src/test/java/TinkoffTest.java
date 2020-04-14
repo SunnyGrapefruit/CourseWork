@@ -27,10 +27,9 @@ public class TinkoffTest {
     }
 
     @After
-    public void tearDown() throws InterruptedException {
+    public void tearDown(){
         driver.quit();
     }
-
 
     public void response(WebElement url){
         List<WebElement> links = url.findElements(By.cssSelector("a"));
