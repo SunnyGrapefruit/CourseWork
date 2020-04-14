@@ -25,38 +25,45 @@ public class CbrCourse {
 //    }
 
     //Проверка статуса
-    public ValidatableResponse getWith200Status(String endPoint){
+    public Response getWith200Status(String endPoint){
         requestSpecification = RestAssured.given().contentType(ContentType.JSON);
-        return requestSpecification
-                .get(endPoint)
-                .then()
-                .statusCode(HttpStatus.SC_OK)
-                .body("Valute.USD.ID", equalTo("R01235"))
-                .body("Valute.EUR.ID", equalTo("R01239"));
+        return requestSpecification.get(endPoint);
     }
 
     @Test //Проверка значения
     public void getCBRCoursesTest(){
-        getWith200Status("https://www.cbr-xml-daily.ru/daily_json.js");
+        getWith200Status("https://www.cbr-xml-daily.ru/daily_json.js").then()
+//                .statusCode(HttpStatus.SC_OK)
+                .assertThat().statusCode(200)
+                .body("Valute.USD.ID", equalTo("R01235"))
+                .body("Valute.EUR.ID", equalTo("R01239"));
     }
 
 
     public Response getName(String endPoint){
-        requestSpecification = RestAssured.given().header("Content-Type", "application/json");
+        requestSpecification = RestAssured.given().contentType(ContentType.JSON);
+        return requestSpecification
+                .get(endPoint);
+    }
+
+    @Test //Проверка значения заголовка
+    public void getNameTest(){
+        getName("https://www.cbr-xml-daily.ru/daily_json.js").then()
+                .header("Content-Type", equalTo("application/javascript; charset=utf-8"));
+    }
+
+    public Response getLog(String endPoint){
+        requestSpecification = RestAssured.given().contentType(ContentType.JSON);
         return requestSpecification
                 .get(endPoint);
     }
 
     @Test //Проверка значения
-    public void getNameTest(){
-//        requestSpecification = RestAssured.given().header("Content-Type", "application/json");
-        System.out.println(getName("https://www.cbr-xml-daily.ru/daily_json.js"));
+    public void getLogTest(){
+        getName("https://www.cbr-xml-daily.ru/daily_json.js");
     }
 
 
+
+
 }
-
-
-
-//
-//.body("Valute.USD.ID", equalTo("R01235"));
