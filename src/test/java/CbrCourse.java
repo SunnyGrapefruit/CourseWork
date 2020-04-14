@@ -1,28 +1,33 @@
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
-import org.apache.http.HttpStatus;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.core.IsEqual.equalTo;
-
 
 
 public class CbrCourse {
 
     public RequestSpecification requestSpecification;
 
-//    @Test  //Проверить, что АПИ вернуло 200 ОК
-//    public void getWith200Status(){
-//        String href = "https://www.cbr-xml-daily.ru/";
-//        int statusCode = RestAssured.get(href).statusCode();
-//        if(200 != statusCode) {
-//            System.out.println(href + " gave a response code of " + statusCode);
-//        }
-//
+//    @Before
+//    public void configureRestAssured() {
+//        RequestSpecification requestSpecification = new RequestSpecBuilder()
+//                .setBaseUri("https://www.cbr-xml-daily.ru/daily_json.js")
+//                .setContentType(ContentType.ANY)
+//                .log(LogDetail.ALL)
+//                .build();
 //    }
+//        RestAssured.baseURI = "http://cookiemonster.com";
+//        RestAssured.requestSpecification = requestSpecification.given()
+//                .header("Language", "en");
+//        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+
 
     //Проверка статуса
     public Response getWith200Status(String endPoint){
@@ -52,18 +57,10 @@ public class CbrCourse {
                 .header("Content-Type", equalTo("application/javascript; charset=utf-8"));
     }
 
-    public Response getLog(String endPoint){
-        requestSpecification = RestAssured.given().contentType(ContentType.JSON);
-        return requestSpecification
-                .get(endPoint);
+    public RequestSpecification getSome(String endPoint){
+        RequestSpecification requestSpec = requestSpecification.given()
+                .baseUri("http://cookiemonster.com")
+                .header("Language", "en");
+        return requestSpec;
     }
-
-    @Test //Проверка значения
-    public void getLogTest(){
-        getName("https://www.cbr-xml-daily.ru/daily_json.js");
-    }
-
-
-
-
 }
