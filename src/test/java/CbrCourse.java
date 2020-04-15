@@ -2,13 +2,14 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 
@@ -61,21 +62,36 @@ public class CbrCourse {
         );
     }
 
-//    @Test //Проверка наличия евро и доллара
-//    public HashMap<String, Double> saveRates() {
-//        double usdRate = requestSpecification.extract()
-//                .jsonPath()
-//                .getDouble("Valute.USD.Value");
-//        double eurRate = requestSpecification.extract()
-//                .jsonPath()
-//                .getDouble("Valute.EUR.Value");
+    public static WebDriver driver;
+
+    @Before
+    public void setUp(){
+        System.setProperty("webdriver.chrome.driver", "config\\chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.get("https://www.tinkoff.ru/about/exchange/");
+    }
+
+    @After
+    public void tearDown(){
+        driver.quit();
+    }
+
+    @Test //Проверка наличия евро и доллара
+    public void saveRates() {
+        double usdRate = requestSpecification.extract()
+                .jsonPath()
+                .getDouble("Valute.USD.Value");
+        double eurRate = requestSpecification.extract()
+                .jsonPath()
+                .getDouble("Valute.EUR.Value");
 //        System.out.println("USD Rate: " + usdRate);
 //        System.out.println("EUR Rate: " + eurRate);
-//
-//        HashMap<String, Double> tmpHashMap = new HashMap<String, Double>();
-//        tmpHashMap.put("UsdRate", usdRate);
-//        tmpHashMap.put("EurRate", eurRate);
-//        return tmpHashMap;
-//    }
+
+        ExchangePage exchangePage = new ExchangePage(driver);
+        Assert.assertEquals(Math.floor(eurRate), exchangePage.courseRate.getText());
+        exchangePage.changeCurrencyFrom();
+        Assert.assertEquals(Math.floor(usdRate), exchangePage.courseRate.getText());
+    }
 
 }

@@ -88,12 +88,4 @@ public class TinkoffTest {
         Assert.assertEquals("Доллар", exchangePage.getCurrencyTo());
     }
 
-    @Test //Пункт 17
-    public void courseComparisonTest() throws InterruptedException {
-        ExchangePage exchangePage = new ExchangePage(driver);
-        CbrCourse cbrCourse = new CbrCourse();
-        double usdRate = cbrCourse.saveRates().get("UsdRate");
-        double eurRate = cbrCourse.saveRates().get("EurRate");
-        Assert.assertEquals(eurRate, exchangePage.courseRate);
-    }
 }

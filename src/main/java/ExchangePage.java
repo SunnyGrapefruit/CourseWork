@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -34,7 +35,10 @@ public class ExchangePage {
     @FindBy(xpath = "//*[@id=\"TCSid1\"]/div[2]/div/div/div/div/div[2]/div[2]/div[1]")
     public WebElement changeCurrencyFrom;
 
-//    @FindBy(xpath = "//*[@class=\"Dropdown__item_3VQrb\"][contains(text(), 'Евро')]")
+//    @FindBy(xpath = "//*[@class=\"Dropdown__content_3KxXb\"][contains(text(), 'Евро')]")
+//    public WebElement changeCurrencyFrom;
+
+//    @FindBy(xpath = "//*[@class=\"Dropdown__content_3KxXb\"][contains(text(), 'Евро')]")
 //    public WebElement changeCurrencyFrom;
 
     @FindBy(xpath = "//*[@id=\"TCSid3\"]/div[2]/div/div/div/div/div[2]/div[3]/div[1]")
@@ -65,7 +69,6 @@ public class ExchangePage {
         currencyFrom.click();
         wait.until(ExpectedConditions.visibilityOf(currencyList));
         changeCurrencyFrom.click();
-//        wait.until(ExpectedConditions.invisibilityOf(currencyList));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("Dropdown__dropdownList_shadow_1Tvwu")));
     }
 
@@ -80,5 +83,7 @@ public class ExchangePage {
 
     @FindBy(xpath = "/html/body/div[1]/div/div/div[1]/div/div/div/div/div/div[3]/div/div/div[3]/div/div[2]/div[2]/div[1]/div[2]/div")
     public WebElement courseRate;
+
+
 
 }
