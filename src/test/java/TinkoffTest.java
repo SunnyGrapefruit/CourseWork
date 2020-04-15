@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -89,4 +88,12 @@ public class TinkoffTest {
         Assert.assertEquals("Доллар", exchangePage.getCurrencyTo());
     }
 
+    @Test //Пункт 17
+    public void courseComparisonTest() throws InterruptedException {
+        ExchangePage exchangePage = new ExchangePage(driver);
+        CbrCourse cbrCourse = new CbrCourse();
+        double usdRate = cbrCourse.saveRates().get("UsdRate");
+        double eurRate = cbrCourse.saveRates().get("EurRate");
+        Assert.assertEquals(eurRate, exchangePage.courseRate);
+    }
 }

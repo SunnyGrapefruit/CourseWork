@@ -6,8 +6,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
-
 public class ExchangePage {
 
     private WebDriver driver;
@@ -80,5 +78,7 @@ public class ExchangePage {
     }
 
 
+    @FindBy(xpath = "/html/body/div[1]/div/div/div[1]/div/div/div/div/div/div[3]/div/div/div[3]/div/div[2]/div[2]/div[1]/div[2]/div")
+    public WebElement courseRate;
 
 }

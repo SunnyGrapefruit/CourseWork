@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 
@@ -59,4 +60,22 @@ public class CbrCourse {
                 )
         );
     }
+
+//    @Test //Проверка наличия евро и доллара
+//    public HashMap<String, Double> saveRates() {
+//        double usdRate = requestSpecification.extract()
+//                .jsonPath()
+//                .getDouble("Valute.USD.Value");
+//        double eurRate = requestSpecification.extract()
+//                .jsonPath()
+//                .getDouble("Valute.EUR.Value");
+//        System.out.println("USD Rate: " + usdRate);
+//        System.out.println("EUR Rate: " + eurRate);
+//
+//        HashMap<String, Double> tmpHashMap = new HashMap<String, Double>();
+//        tmpHashMap.put("UsdRate", usdRate);
+//        tmpHashMap.put("EurRate", eurRate);
+//        return tmpHashMap;
+//    }
+
 }
