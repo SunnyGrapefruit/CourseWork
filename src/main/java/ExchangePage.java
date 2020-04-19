@@ -44,6 +44,12 @@ public class ExchangePage {
     @FindBy(xpath = "//*[@id=\"TCSid3\"]/div[2]/div/div/div/div/div[2]/div[3]/div[1]")
     public WebElement changeCurrencyTo;
 
+    @FindBy(xpath = "/html/body/div[1]/div/div/div[1]/div/div/div/div/div/div[3]/div/div/div[3]/div/div[1]/div[2]/div/div[1]")
+    public WebElement courseFrom;
+
+    @FindBy(xpath = "/html/body/div[1]/div/div/div[1]/div/div/div/div/div/div[3]/div/div/div[3]/div/div[1]/div[2]/div/div[2]")
+    public WebElement courseTo;
+
     public ExchangePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -51,6 +57,7 @@ public class ExchangePage {
 
     public String getCurrentPage(){
         String current = currentPage.getText();
+        String cur = currentPage.getCssValue(".header__n-Ztx");
         return current;
     }
 
@@ -63,6 +70,17 @@ public class ExchangePage {
         String currency = currencyTo.getText();
         return currency;
     }
+
+    public String getCourseFrom(){
+        String currency = courseFrom.getText();
+        return currency;
+    }
+
+    public String getCourseTo(){
+        String currency = courseTo.getText();
+        return currency;
+    }
+
 
     public void changeCurrencyFrom(){
         WebDriverWait wait = new WebDriverWait(driver, 5);
@@ -83,7 +101,5 @@ public class ExchangePage {
 
     @FindBy(xpath = "/html/body/div[1]/div/div/div[1]/div/div/div/div/div/div[3]/div/div/div[3]/div/div[2]/div[2]/div[1]/div[2]/div")
     public WebElement courseRate;
-
-
 
 }

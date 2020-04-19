@@ -46,7 +46,7 @@ public class TinkoffTest {
     @DisplayName("Тест страницы 'Курс валют'")
     public void testMovies() {
         headerTest();
-        footerTest();
+//        footerTest();
         getCurrentPageTest();
         getCurrencyFromTest();
         changeCurrencyFromTest();
@@ -81,6 +81,8 @@ public class TinkoffTest {
         wait.until(ExpectedConditions.visibilityOf(exchangePage.currencyFrom));
         Assert.assertEquals("Рубль", exchangePage.getCurrencyFrom());
         Assert.assertEquals("Евро", exchangePage.getCurrencyTo());
+        Assert.assertEquals("₽ → €", exchangePage.getCourseFrom());
+        Assert.assertEquals("€ → ₽", exchangePage.getCourseTo());
     }
 
     @Step("Проверка курса 'Евро' -> 'Рубль'") //Пункт 7
@@ -98,6 +100,8 @@ public class TinkoffTest {
         exchangePage.changeCurrencyTo();
         Assert.assertEquals("Евро", exchangePage.getCurrencyFrom());
         Assert.assertEquals("Доллар", exchangePage.getCurrencyTo());
+        Assert.assertEquals("$ → €", exchangePage.getCourseFrom());
+        Assert.assertEquals("€ → $", exchangePage.getCourseTo());
     }
 
 }
