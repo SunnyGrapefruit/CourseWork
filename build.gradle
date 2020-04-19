@@ -27,7 +27,7 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.+'
     testCompile group: 'io.rest-assured', name: 'rest-assured', version: '4.3.0'
-
+    compile group: 'io.rest-assured', name: 'json-schema-validator', version: '3.0.0'
 
     testCompile 'org.assertj:assertj-core:3.11.1'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'

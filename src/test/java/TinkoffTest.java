@@ -44,7 +44,7 @@ public class TinkoffTest {
 
     @Test
     @DisplayName("Тест страницы 'Курс валют'")
-    public void testMovies() {
+    public void testCourseCurrency() {
         headerTest();
 //        footerTest();
         getCurrentPageTest();
@@ -66,7 +66,8 @@ public class TinkoffTest {
         response(exchangePage.footer);
     }
 
-    @Step("Проверка текущего раздела") //Пункт 4
+//    @Step("Проверка текущего раздела") //Пункт 4
+    @Test
     public void getCurrentPageTest() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         ExchangePage exchangePage = new ExchangePage(driver);

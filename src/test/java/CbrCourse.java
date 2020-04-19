@@ -1,10 +1,12 @@
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import io.restassured.module.jsv.JsonSchemaValidator;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -17,6 +19,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 public class CbrCourse {
 
     private static ValidatableResponse requestSpecification;
+    public static WebDriver driver;
 
     @BeforeClass
     public static void setupResponse() {
@@ -24,27 +27,48 @@ public class CbrCourse {
                 .get("https://www.cbr-xml-daily.ru/daily_json.js")
                 .then()
                 .statusCode(HttpStatus.SC_OK);
+
+//        System.setProperty("webdriver.chrome.driver", "config\\chromedriver.exe");
+//        driver = new ChromeDriver();
+//        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+//        driver.get("https://www.tinkoff.ru/about/exchange/");
     }
 
-    @Test //Проверка значения статуса
+//    @AfterClass
+//    public void tearDown(){
+//        driver.quit();
+//    }
+
+    @Test
+    @DisplayName("Тест страницы 'Курс валют'")
+    public void testCbrApi() {
+        getWith200StatusTest();
+        getHeaderTest();
+        getCourseTest();
+//        getDateTest();
+//        saveRates();
+    }
+
+    @Step("Проверка статуса") //Пункт 12
     public void getWith200StatusTest() {
-        requestSpecification.assertThat().statusCode(200);
+        requestSpecification.assertThat().statusCode(HttpStatus.SC_OK);
     }
 
-    @Test //Проверка наличия евро и доллара
+    @Step("Проверка заголовка Content-Type") //Пункт 13
+    public void getHeaderTest() {
+        requestSpecification.assertThat()
+                .contentType(ContentType.JSON);
+    }
+
+    @Step("Проверка наличия \"USD\" и \"EUR\"") //Пункт 14
     public void getCourseTest() {
         requestSpecification
-                .body("Valute.USD.ID", equalTo("R01235"))
-                .body("Valute.EUR.ID", equalTo("R01239"));
+                .assertThat()
+                .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("rates-schema.json"));
     }
 
-    @Test //Проверка заголовка
-    public void getNameTest() {
-        requestSpecification
-                .header("Content-Type", equalTo("application/javascript; charset=utf-8"));
-    }
 
-    @Test //Проверка даты
+    @Step("Проверка header") //Проверка даты
     public void getDateTest() {
 //        requestSpecification
 //                .body("Timestamp", equalTo(LocalDate.now()))
@@ -62,22 +86,8 @@ public class CbrCourse {
         );
     }
 
-    public static WebDriver driver;
 
-    @Before
-    public void setUp(){
-        System.setProperty("webdriver.chrome.driver", "config\\chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.get("https://www.tinkoff.ru/about/exchange/");
-    }
-
-    @After
-    public void tearDown(){
-        driver.quit();
-    }
-
-    @Test //Проверка наличия евро и доллара
+    @Step("Проверка header") //Проверка наличия евро и доллара
     public void saveRates() {
         double usdRate = requestSpecification.extract()
                 .jsonPath()

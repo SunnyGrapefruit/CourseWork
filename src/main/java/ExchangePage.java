@@ -20,7 +20,7 @@ public class ExchangePage {
     @FindBy(className = "footer__8Y9k5")
     public WebElement footer;
 
-    @FindBy(className = "header__3Gok1")
+    @FindBy(className = "header__n-Ztx")
     public WebElement currentPage;
 
     @FindBy(id = "TCSid1")
@@ -57,7 +57,6 @@ public class ExchangePage {
 
     public String getCurrentPage(){
         String current = currentPage.getText();
-        String cur = currentPage.getCssValue(".header__n-Ztx");
         return current;
     }
 
