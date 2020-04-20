@@ -1,6 +1,6 @@
 java - v. '10.0.2'
 junit - v. '4.12'
-allure - v. '2.8.1'
+allure - v. '2.13.2'
 selenium - v. '3.+'
 gradle - v. '5.6.4'
 
