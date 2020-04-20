@@ -66,8 +66,7 @@ public class TinkoffTest {
         response(exchangePage.footer);
     }
 
-//    @Step("Проверка текущего раздела") //Пункт 4
-    @Test
+    @Step("Проверка текущего раздела") //Пункт 4
     public void getCurrentPageTest() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         ExchangePage exchangePage = new ExchangePage(driver);
